@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 
 public class NoteDAO {
-    public static final String TAG = "CourseDAO";
+    public static final String TAG = "NoteDAO";
 
     private SQLiteDatabase db;
     private DBHandler dbh;
@@ -86,16 +86,13 @@ public class NoteDAO {
         return  list;
     }
     public void updateNote(String title,String content, String time,long id){
-        db=dbh.getWritableDatabase();
-        ContentValues contentValues=new ContentValues();
-        contentValues.put(DBHandler.NOTE_ID,id);
-        contentValues.put(DBHandler.NOTE_TITLE,title);
-        contentValues.put(DBHandler.NOTE_CONTENT,content);
-        contentValues.put(DBHandler.NOTE_TIMESTAMP,time);
-        db.update(DBHandler.NOTE_TABLE,contentValues,DBHandler.NOTE_ID+" = "+id,null);
+        /*TODO update the note with the specified id, using the new parameters
+         *make use of ContentValues and the database update method
+         */
     }
     public void deleteNote(long id) {
-        db = dbh.getWritableDatabase();
-        db.execSQL("DELETE FROM "+DBHandler.NOTE_TABLE+" WHERE "+DBHandler.NOTE_ID+" = "+id);
+        /*TODO delete the note with the specified id, you can use either
+         * the database query or delete method
+        */
     }
 }

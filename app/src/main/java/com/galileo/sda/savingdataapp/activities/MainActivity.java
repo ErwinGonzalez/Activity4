@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.handl
     public NoteDAO notes;
     public RecyclerView rv;
     public NoteAdapter noteAd;
-    public RecyclerView.LayoutManager manager;
     public ArrayList<NoteModel> noteList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.handl
         notes = new NoteDAO(this);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.faButton);
         fab.setOnClickListener(new View.OnClickListener() {
+            //On click will show the insert dialog
             @Override
             public void onClick(View view) {
                 showInsertDialog(true,-1);
@@ -83,11 +83,13 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.handl
         return super.onOptionsItemSelected(item);
     }
     public void showInsertDialog(final boolean insert, final int position){
+        //used as both insert and update, depending on the insert boolean
         LayoutInflater li = LayoutInflater.from(this);
         View dialog_view = li.inflate(R.layout.dialog_layout,null);
         final EditText title = (EditText)dialog_view.findViewById(R.id.etTitle);
         final EditText content = (EditText)dialog_view.findViewById(R.id.etContent);
         if(!insert){
+            //if called as update fills the fields with the existing data
             NoteModel n = noteList.get(position);
             title.setText(n.getTitle());
             content.setText(n.getContent());
@@ -130,24 +132,6 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.handl
 
     @Override
     public void deleteClicked(final int position) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Delete Confirmation")
-                .setMessage("You are about to delete the note, proceed?")
-                .setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        NoteModel n = noteList.get(position);
-                        notes.deleteNote(n.getId());
-                        updateList();
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                });
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        //TODO add a dialog to confirm the deletion of the clicked Note, get the note from notesList using the position
     }
 }

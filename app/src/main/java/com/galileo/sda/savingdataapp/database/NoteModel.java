@@ -45,6 +45,6 @@ public class NoteModel {
         this.id = id;
     }
     public String toString(){
-        return "Title: "+this.getTitle()+"\nTime: "+this.getDatetime()+"\nContent: "+this.getContent()+"\n";
+        return "Placeholder Note";
     }
 }

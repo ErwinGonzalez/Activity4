@@ -45,19 +45,11 @@ public class Settings extends AppCompatActivity{
         Button saveButton = (Button) findViewById(R.id.savelocationbutton);
         Button deleteButton = (Button) findViewById(R.id.deletedatabutton);
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-        saveLocation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    preferences.edit().putBoolean("externalSave",true).apply();
-                }
-                else
-                    preferences.edit().putBoolean("externalSave",false).apply();
-            }
-        });
-        if(preferences.getBoolean("externalSave",false))
-            saveLocation.setChecked(true);
+        /*TODO set a onCheckedChangedListener on the checkbox
+        * then save the value to the shared preferences
+        * Finally check the value from the preferences, so the
+        * checkbox can be checked or not
+        * this is done by checkbox.setChecked(true)*/
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,6 +86,7 @@ public class Settings extends AppCompatActivity{
         try {
             String filename = "Notes.txt";
             File file;
+            //As in java, use a FileOutputStream to write data
             FileOutputStream fos;
             if (saveLocation.isChecked() && Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
                 //set save location external
@@ -103,11 +96,15 @@ public class Settings extends AppCompatActivity{
                 file = new File(getApplicationContext().getFilesDir(),filename);
             }
             fos = new FileOutputStream(file);
+            //use DAO method to get notes as a list
             ArrayList<NoteModel> notes = noteDAO.getAllNotes();
             String out="";
+            //for every note get the String Value and append to output
             for(NoteModel note:notes)
                 out+=note.toString()+"\n";
+            //when done write to FOS
             fos.write(out.getBytes());
+            //always close FOS after done using
             fos.close();
         }catch (IOException e) {
             e.printStackTrace();
@@ -115,7 +112,6 @@ public class Settings extends AppCompatActivity{
     }
     private void deleteData() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
         alertDialogBuilder.setTitle("Warning");
         alertDialogBuilder.setMessage("You are about to delete all data, proceed?");
 
