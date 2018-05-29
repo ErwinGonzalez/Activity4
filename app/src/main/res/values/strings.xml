@@ -4,4 +4,7 @@
     <string name="save_to_external_storage">Save to external Storage</string>
     <string name="save_data">Save Data</string>
     <string name="delete_all_data">Delete All Data</string>
+    <string name="title">Title</string>
+    <string name="time">Time</string>
+    <string name="content">Content</string>
 </resources>

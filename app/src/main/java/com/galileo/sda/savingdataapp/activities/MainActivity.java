@@ -23,6 +23,7 @@ import com.galileo.sda.savingdataapp.database.NoteModel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 import static android.R.attr.inset;
 
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.handl
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String timestamp = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(Calendar.getInstance().getTime());
+                        String timestamp = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.US).format(Calendar.getInstance().getTime());
                         if(insert)
                             notes.insertNote(title.getText().toString(),content.getText().toString(),timestamp);
                         else{
