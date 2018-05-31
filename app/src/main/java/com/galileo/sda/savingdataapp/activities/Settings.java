@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.Manifest;
+import android.widget.Toast;
 
 import com.galileo.sda.savingdataapp.R;
 import com.galileo.sda.savingdataapp.database.NoteDAO;
@@ -65,14 +66,15 @@ public class Settings extends AppCompatActivity{
 
     }
     private void requestWriteStorage(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && saveLocation.isChecked()){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED){
                 requestPermissions(new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST_WRITE_STORAGE);
+            }else{
+                saveData();
             }
         }else {
             saveData();
         }
-
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,@NonNull int[] grantRestuls){
@@ -90,7 +92,8 @@ public class Settings extends AppCompatActivity{
             FileOutputStream fos;
             if (saveLocation.isChecked() && Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
                 //set save location external
-                file = new File(Environment.getExternalStorageDirectory(),filename);
+                //saves the file to Storage/SDCard/Android/data/package/NotesExample
+                file = new File(getApplicationContext().getExternalFilesDir("NotesExample"),filename);
             } else {
                 //set save location internal
                 file = new File(getApplicationContext().getFilesDir(),filename);
@@ -106,6 +109,7 @@ public class Settings extends AppCompatActivity{
             fos.write(out.getBytes());
             //always close FOS after done using
             fos.close();
+            Toast.makeText(this,"Data Saved",Toast.LENGTH_SHORT).show();
         }catch (IOException e) {
             e.printStackTrace();
         }

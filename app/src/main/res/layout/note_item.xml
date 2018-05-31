@@ -4,15 +4,17 @@
     android:layout_width="match_parent"
     android:layout_marginBottom="10dp"
     android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground">
+    android:foreground="?android:attr/selectableItemBackground"
+    android:focusable="true">
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="8dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/noteTitle"
-            android:hint="Title"
+            android:hint="@string/title"
             android:textAllCaps="true"
             android:textStyle="bold"
             android:layout_marginRight="5dp"/>
@@ -22,12 +24,12 @@
             android:id="@+id/noteTime"
             android:layout_toEndOf="@+id/noteTitle"
             android:layout_toRightOf="@+id/noteTitle"
-            android:hint="Time"/>
+            android:hint="@string/time"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/noteContent"
             android:layout_below="@+id/noteTitle"
-            android:hint="Content"/>
+            android:hint="@string/content"/>
     </RelativeLayout>
 </android.support.v7.widget.CardView>
